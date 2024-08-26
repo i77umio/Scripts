@@ -14,8 +14,8 @@ password=[]
 
 print("\n--+--  Starting on blind sql probe  --+--\n")
 # CHANGE -> change sqli on line 20 !!!!
-for i in range(1,2):
-	for char_dec in range(108,110):
+for i in range(1,25):
+	for char_dec in range(32,127):
 	#for char_dec in range(109,110):
 		print(f"..trying {i}st character {char_dec} or ",chr(char_dec))
 		#time.sleep(2)
